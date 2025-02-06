@@ -44,4 +44,18 @@ document.addEventListener("DOMContentLoaded", function() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
+  
+  // ---------------------------
+  // 可选：为导航栏添加滚动时样式变化（如果你的 header 存在）
+  // ---------------------------
+  var header = document.querySelector("header");
+  if (header) {
+    window.addEventListener("scroll", function() {
+      if (window.pageYOffset > 50) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+    });
+  }
 });
