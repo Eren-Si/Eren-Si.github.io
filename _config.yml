@@ -51,7 +51,7 @@ title-img: /assets/img/logo.png
 # Uncomment the links you want to show and add your information to each one.
 social-network-links:
   email: "deadsi@uw.edu"
-  #rss: true  # remove this line if you don't want to show an RSS link at the bottom
+#rss: true  # remove this line if you don't want to show an RSS link at the bottom
   github: Eren-Si
 #  medium: yourname
 #  reddit: yourname or r/yoursubreddit
@@ -62,7 +62,7 @@ social-network-links:
 #  instagram: deanat78
 #  spotify: yourname
 #  telephone: +14159998888
-   steam: deadsi
+  steam: deadsi
 #  twitch: yourname
 #  yelp: yourname
 #  telegram: yourname
