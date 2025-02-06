@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   var themeToggleButton = document.getElementById("theme-toggle");
   if (themeToggleButton) {
-    // 根据当前主题设置按钮图标
+    // 设置按钮图标：暗色模式下显示太阳，亮色模式下显示月亮
     themeToggleButton.textContent = document.body.classList.contains("dark-mode") ? "☀" : "☾";
     
     themeToggleButton.addEventListener("click", function() {
@@ -18,7 +18,10 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem("theme", "light");
         themeToggleButton.textContent = "☾";
       }
+      console.log("当前主题：", document.body.classList.contains("dark-mode") ? "dark" : "light");
     });
+  } else {
+    console.error("未找到 id 为 theme-toggle 的按钮！");
   }
   
   // 回到顶部按钮功能
