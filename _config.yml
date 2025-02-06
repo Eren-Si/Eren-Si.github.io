@@ -10,7 +10,7 @@
 ############################
 
 # Name of website
-title: My website
+title: Plz give me jobs
 
 # Your name to show in the footer
 author: Eren Si
@@ -24,9 +24,6 @@ navbar-links:
   About Me: "aboutme"
   Projects: "projects"
   Blog: "blog"
-  Resources:
-    - Beautiful Jekyll: "https://beautifuljekyll.com"
-    - Learn markdown: "https://www.markdowntutorial.com/"
   Contact: "contact"
 
 ################
@@ -42,7 +39,7 @@ round-avatar: true
 
 # If you want to have an image logo in the top-left corner instead of having the title of the website,
 # then specify the following parameter
-#title-img: /path/to/image
+title-img: /assets/img/logo.png
 
 
 #####################################
