@@ -34,6 +34,18 @@ a {
   color: var(--accent-color);
 }
 
+/* 导航栏样式（如果存在） */
+nav {
+  background-color: var(--container-bg);
+  transition: background-color 0.3s ease;
+}
+
+/* 底部栏样式（如果存在） */
+footer {
+  background-color: var(--container-bg);
+  transition: background-color 0.3s ease;
+}
+
 /* 个人简介区块 */
 .profile-container {
   background-color: var(--container-bg);
@@ -99,10 +111,20 @@ a {
     height: 200px;
   }
 }
+
+/* 樱花飘散效果的样式 */
+.sakura-petal {
+  position: fixed;
+  top: -50px;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  user-select: none;
+}
 </style>
 
-<!-- 切换模式按钮 -->
-<div style="position: fixed; top: 1rem; right: 1rem; z-index: 1000;">
+<!-- 切换模式按钮（下移避免被导航栏覆盖） -->
+<div style="position: fixed; top: 70px; right: 1rem; z-index: 1000;">
   <button id="theme-toggle" style="padding: 0.5rem 1rem; background: var(--accent-color); border: none; border-radius: 4px; color: #fff; cursor: pointer;">
     Toggle Dark Mode
   </button>
@@ -111,7 +133,7 @@ a {
 <!-- Personal Profile Section -->
 <section id="profile" style="text-align: center; padding: 2rem 0;">
   <div class="profile-container">
-    <!-- 个人头像 -->
+    <!-- 个人头像，请确保图片路径正确 -->
     <img src="{{ site.baseurl }}/assets/img/eren.jpg" alt="Eren Si" class="avatar">
     <h1>Eren Si</h1>
     <p>
@@ -126,7 +148,6 @@ a {
 <section id="work-experience">
   <div class="container">
     <h2>Work Experience</h2>
-    
     <article class="experience">
       <h3>SUPCON - Backend Development Engineer</h3>
       <p class="date-location">
@@ -140,40 +161,78 @@ a {
         <li>Monitored and optimized system performance using tools like Wireshark and signal generators to resolve network bottlenecks and I/O issues.</li>
       </ul>
     </article>
-    
-    <!-- 如果需要，可在此处添加更多工作经历 -->
-    
   </div>
 </section>
 
-<!-- 内联 JavaScript，实现暗/亮模式切换 -->
+<!-- 樱花飘散效果的容器（JS 动态生成） -->
+<div id="sakura-container"></div>
+
+<!-- 内联 JavaScript，实现暗/亮模式切换和樱花飘散效果 -->
 <script>
+// DOMContentLoaded 确保元素加载完成后执行
 document.addEventListener("DOMContentLoaded", function() {
-  // 检查 localStorage 中保存的主题设置
-  const currentTheme = localStorage.getItem('theme');
-  if (currentTheme === 'dark') {
-    document.body.classList.add('dark-mode');
+  // 切换暗/亮模式代码
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
   }
   
-  const themeToggleButton = document.getElementById('theme-toggle');
+  var themeToggleButton = document.getElementById("theme-toggle");
   if (themeToggleButton) {
-    // 初始化按钮文字
-    if (document.body.classList.contains('dark-mode')) {
-      themeToggleButton.textContent = 'Toggle Light Mode';
+    if (document.body.classList.contains("dark-mode")) {
+      themeToggleButton.textContent = "Toggle Light Mode";
     } else {
-      themeToggleButton.textContent = 'Toggle Dark Mode';
+      themeToggleButton.textContent = "Toggle Dark Mode";
     }
-    // 添加点击事件
-    themeToggleButton.addEventListener('click', function() {
-      document.body.classList.toggle('dark-mode');
-      if (document.body.classList.contains('dark-mode')) {
-        localStorage.setItem('theme', 'dark');
-        this.textContent = 'Toggle Light Mode';
+    
+    themeToggleButton.addEventListener("click", function() {
+      document.body.classList.toggle("dark-mode");
+      if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("theme", "dark");
+        themeToggleButton.textContent = "Toggle Light Mode";
       } else {
-        localStorage.setItem('theme', 'light');
-        this.textContent = 'Toggle Dark Mode';
+        localStorage.setItem("theme", "light");
+        themeToggleButton.textContent = "Toggle Dark Mode";
       }
     });
   }
+
+  // 樱花飘散效果
+  var petalCount = 30; // 可根据喜好调整数量
+  var sakuraContainer = document.getElementById("sakura-container");
+  var windowWidth = window.innerWidth;
+  var windowHeight = window.innerHeight;
+  
+  for (var i = 0; i < petalCount; i++) {
+    var petal = document.createElement("div");
+    petal.className = "sakura-petal";
+    // 使用 Emoji 樱花，可以替换为图片链接
+    petal.textContent = "🌸";
+    petal.style.fontSize = (Math.random() * 20 + 10) + "px";
+    petal.style.left = (Math.random() * windowWidth) + "px";
+    petal.style.opacity = Math.random();
+    sakuraContainer.appendChild(petal);
+  }
+  
+  function animatePetals() {
+    var petals = document.getElementsByClassName("sakura-petal");
+    for (var i = 0; i < petals.length; i++) {
+      var petal = petals[i];
+      // 获取当前位置
+      var top = parseFloat(petal.style.top) || -50;
+      var left = parseFloat(petal.style.left);
+      // 更新位置：下落并左右摇摆
+      top += Math.random() * 2 + 1;
+      left += Math.sin(Date.now() / 1000 + i) * 1;
+      if (top > windowHeight) {
+        top = -50;
+        left = Math.random() * windowWidth;
+      }
+      petal.style.top = top + "px";
+      petal.style.left = left + "px";
+    }
+    requestAnimationFrame(animatePetals);
+  }
+  
+  animatePetals();
 });
 </script>
