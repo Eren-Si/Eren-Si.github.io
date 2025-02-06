@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   var themeToggleButton = document.getElementById("theme-toggle");
   if (themeToggleButton) {
-    // 根据当前主题设置按钮图标：暗色模式下显示太阳，亮色模式下显示月亮
+    // 设置按钮图标：暗色模式下显示太阳，亮色模式下显示月亮
     if (document.body.classList.contains("dark-mode")) {
       themeToggleButton.textContent = "☀";
     } else {
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   
   // ---------------------------
-  // 可选：为导航栏添加滚动时样式变化（如果你的 header 存在）
+  // 可选：为导航栏添加滚动时样式变化（如果 header 存在）
   // ---------------------------
   var header = document.querySelector("header");
   if (header) {
