@@ -10,6 +10,9 @@
 ############################
 site-css:
   - "/assets/css/custom.css"
+
+site-js:
+  - "/assets/js/custom.js"
 # Name of website
 title: Plz give me jobs
 
