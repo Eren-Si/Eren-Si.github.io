@@ -33,39 +33,40 @@ nav, footer {
   transition: background-color 0.3s ease;
 }
 
-/* 侧边切换按钮样式 */
+/* 侧边切换按钮容器，竖直的矩形 */
 #side-toggle-container {
   position: fixed;
   top: 50%;
-  right: -40px; /* 初始隐藏，仅露出 40px */
+  right: -20px; /* 初始隐藏，只露出 20px */
   transform: translateY(-50%);
   transition: right 0.3s ease;
   z-index: 1000;
-  width: 40px;    /* 容器宽度 */
-  height: 120px;  /* 容器高度 */
+  width: 30px;   /* 宽度较窄 */
+  height: 120px; /* 高度适中 */
   background: var(--accent-color);
   border-radius: 4px 0 0 4px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* 鼠标悬停时容器滑出 */
 #side-toggle-container:hover {
   right: 0;
 }
 
+/* 侧边按钮内的文字竖直显示 */
 #side-toggle-container button {
-  width: 100%;
-  height: 100%;
-  border: none;
   background: transparent;
+  border: none;
   color: #fff;
-  font-size: 24px;
+  font-size: 16px;
   cursor: pointer;
-  outline: none;
-  transition: transform 0.3s ease;
+  /* 让按钮内的文字竖直排列 */
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  /* 可根据需要旋转文字以达到理想效果 */
+  transform: rotate(180deg);
 }
-
-#side-toggle-container button:hover {
-  transform: scale(1.1);
-}
-
 /* 其它全局样式可以根据需要添加或调整 */
