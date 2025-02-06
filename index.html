@@ -2,16 +2,23 @@
 layout: home
 ---
 
+<!-- 切换模式按钮 -->
+<div style="position: fixed; top: 1rem; right: 1rem; z-index: 1000;">
+  <button id="theme-toggle" style="padding: 0.5rem 1rem; background: var(--accent-color); border: none; border-radius: 4px; color: #fff; cursor: pointer;">
+    Toggle Dark Mode
+  </button>
+</div>
+
 <!-- Personal Profile Section -->
-<section id="profile" style="text-align: center;">
+<section id="profile" style="text-align: center; padding: 2rem 0;">
   <div class="profile-container">
     <!-- 个人头像 -->
     <img src="{{ site.baseurl }}/assets/img/eren.png" alt="Eren Si" class="avatar">
     <h1>Eren Si</h1>
     <p>
       (+1) 206-225-0251 —— 
-      <a href="mailto:deadsi@uw.edu" style="color: #007ACC; text-decoration: none;">deadsi@uw.edu</a> —— 
-      <a href="https://linkedin.com/in/haofeng-si" target="_blank" style="color: #007ACC; text-decoration: none;">LinkedIn</a>
+      <a href="mailto:deadsi@uw.edu">deadsi@uw.edu</a> —— 
+      <a href="https://linkedin.com/in/haofeng-si" target="_blank">LinkedIn</a>
     </p>
   </div>
 </section>
@@ -39,3 +46,33 @@ layout: home
     
   </div>
 </section>
+
+<!-- 内联 JavaScript，实现暗/亮模式切换 -->
+<script>
+  // 检查 localStorage 中保存的主题设置
+  const currentTheme = localStorage.getItem('theme');
+  if (currentTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+  }
+
+  // 切换主题功能
+  document.getElementById('theme-toggle').addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+    if (document.body.classList.contains('dark-mode')) {
+      localStorage.setItem('theme', 'dark');
+      this.textContent = 'Toggle Light Mode';
+    } else {
+      localStorage.setItem('theme', 'light');
+      this.textContent = 'Toggle Dark Mode';
+    }
+  });
+
+  // 初始化按钮文字，根据当前主题更新
+  window.addEventListener('DOMContentLoaded', () => {
+    if (document.body.classList.contains('dark-mode')) {
+      document.getElementById('theme-toggle').textContent = 'Toggle Light Mode';
+    } else {
+      document.getElementById('theme-toggle').textContent = 'Toggle Dark Mode';
+    }
+  });
+</script>
