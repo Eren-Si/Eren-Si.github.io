@@ -192,3 +192,13 @@ html {
   /* 如果需要改变背景颜色，可以直接写具体颜色 */
   background: #e06a50;
 }
+#work-experience article.experience {
+  transition: transform 0.3s ease;
+}
+
+#work-experience article.experience:hover {
+  transform: translateY(-5px);
+}
+a:hover {
+  text-decoration: underline;
+}
