@@ -13,6 +13,7 @@ site-css:
 
 site-js:
   - "/assets/js/custom.js"
+remove-ads: true
 # Name of website
 title: Plz give me jobs
 
