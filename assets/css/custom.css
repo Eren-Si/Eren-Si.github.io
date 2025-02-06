@@ -1,33 +1,25 @@
-/* ===== 全局动画 ===== */
-/* 页面淡入动画（已定义） */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* 平滑滚动效果 */
+html {
+  scroll-behavior: smooth;
 }
 
-/* 为主要内容增加统一淡入效果 */
-.main-content-animate {
-  opacity: 0;
-  animation: fadeIn 0.8s forwards;
-  /* 可根据需要增加延迟，例如：animation-delay: 0.3s; */
+/* --- 全局主题 CSS 变量 --- */
+:root {
+  --background-color: #f4f4f4;
+  --text-color: #333;
+  --accent-color: #ff7e5f; /* 可自行调整为你喜欢的颜色 */
+  --container-bg: #fff;
 }
 
-/* ===== 粘性导航栏样式 ===== */
-/* 假设 header 元素由 header.html 输出 */
-header {
-  position: sticky;
-  top: 0;
-  background-color: var(--container-bg);
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+/* 暗色模式变量覆盖 */
+body.dark-mode {
+  --background-color: #121212;
+  --text-color: #e0e0e0;
+  --accent-color: #feb47b;
+  --container-bg: #1e1e1e;
 }
 
-/* 滚动时可以调整样式，例如减少高度或加深阴影 */
-body.scrolled header {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
+/* 全局基础样式 */
 body {
   font-family: 'Montserrat', sans-serif;
   background-color: var(--background-color);
@@ -36,32 +28,29 @@ body {
   margin: 0;
   padding: 0;
 }
-p {
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
 
-h1, h2, h3 {
-  font-weight: 600;
-}
-
-/* ===== 社交媒体图标悬停效果 ===== */
-/* 假设社交媒体链接在 _includes/social-networks-links.html 中输出，并使用 .social-networks-links 类 */
-.social-networks-links a {
-  display: inline-block;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.social-networks-links a:hover {
-  transform: scale(1.1);
+a {
   color: var(--accent-color);
 }
 
-/* ===== 侧边按钮、回到顶部按钮、其他已有代码保留 ===== */
-/* 此处保留你之前已经设置的侧边主题切换按钮、回到顶部按钮以及其它内容 */
-/* 例如：侧边按钮、回到顶部按钮的样式代码请参考你之前的 custom.css */
+nav, footer {
+  background-color: var(--container-bg);
+  transition: background-color 0.3s ease;
+}
 
-/* 示例：侧边按钮（竖直，隐藏时只露出一小部分） */
+/* ===== 淡入动画 ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 为主要内容添加淡入动画 */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+}
+
+/* ===== 侧边主题切换按钮 ===== */
 #side-toggle-container {
   position: fixed;
   top: 50%;
@@ -71,7 +60,7 @@ h1, h2, h3 {
   z-index: 1000;
   width: 40px;
   height: 120px;
-  background: linear-gradient(135deg, #ff9a9e, #fecfef);
+  background: linear-gradient(135deg, #ff9a9e, #fecfef); /* 暖色调渐变 */
   border-radius: 4px 0 0 4px;
   overflow: hidden;
   display: flex;
@@ -101,7 +90,7 @@ h1, h2, h3 {
   transform: rotate(180deg) scale(1.1);
 }
 
-/* 回到顶部按钮样式 */
+/* ===== 回到顶部按钮 ===== */
 #back-to-top-container {
   position: fixed;
   bottom: 20px;
@@ -125,8 +114,34 @@ h1, h2, h3 {
   background: #e06a50;
 }
 
+/* ===== 微交互效果 ===== */
+/* 工作经历项悬停上移效果 */
+#work-experience article.experience {
+  transition: transform 0.3s ease;
+}
+
+#work-experience article.experience:hover {
+  transform: translateY(-5px);
+}
+
+/* 链接悬停下划线效果 */
+a:hover {
+  text-decoration: underline;
+}
+
 /* ===== 头像与个人简介动画 ===== */
-/* 调整头像尺寸为200x200，已设置悬停放大 */
+/* 个人简介容器淡入动画 */
+.profile-container {
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+  transition: transform 0.3s ease;
+}
+
+.profile-container:hover {
+  transform: scale(1.02);
+}
+
+/* 头像尺寸调整为200x200px，并添加悬停放大效果 */
 .profile-container img.avatar {
   width: 200px;
   height: 200px;
@@ -140,19 +155,13 @@ h1, h2, h3 {
   transform: scale(1.05);
 }
 
-/* 为个人简介容器添加淡入动画（如果未添加） */
-.profile-container {
-  opacity: 0;
-  animation: fadeIn 0.8s forwards;
-}
-
-/* 为工作经历区域添加淡入动画 */
+/* 工作经历区域淡入动画 */
 #work-experience {
   opacity: 0;
   animation: fadeIn 1s forwards;
 }
 
-/* 响应式调整 */
+/* 响应式调整：手机端头像 */
 @media (max-width: 600px) {
   .profile-container img.avatar {
     width: 180px;
