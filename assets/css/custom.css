@@ -28,6 +28,19 @@ body.scrolled header {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+}
+
 /* ===== 社交媒体图标悬停效果 ===== */
 /* 假设社交媒体链接在 _includes/social-networks-links.html 中输出，并使用 .social-networks-links 类 */
 .social-networks-links a {
