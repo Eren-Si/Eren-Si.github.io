@@ -7,15 +7,20 @@ html {
 :root {
   --background-color: #f4f4f4;
   --text-color: #333;
-  --accent-color: #ff7e5f; /* 亮色模式按钮颜色 */
+  --accent-color: #ff7e5f; /* 亮色模式按钮、链接等颜色 */
   --container-bg: #fff;
+  
+  /* 重要信息颜色（亮色模式） */
+  --info-color: #ff7e5f;
+  /* 暗色模式下的重要信息颜色 */
+  --info-color-dark: #feb47b;
 }
 
 /* 暗色模式变量覆盖 */
 body.dark-mode {
   --background-color: #121212;
   --text-color: #e0e0e0;
-  --accent-color: #feb47b; /* 暗色模式按钮颜色 */
+  --accent-color: #feb47b;
   --container-bg: #1e1e1e;
 }
 
@@ -38,6 +43,18 @@ nav, footer {
   transition: background-color 0.3s ease;
 }
 
+/* ===== 淡入动画 ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 为主要内容添加淡入动画 */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+}
+
 /* ===== 侧边主题切换按钮 ===== */
 #side-toggle-container {
   position: fixed;
@@ -48,7 +65,7 @@ nav, footer {
   z-index: 1000;
   width: 40px;
   height: 120px;
-  background: linear-gradient(135deg, #ff9a9e, #fecfef);
+  background: linear-gradient(135deg, #ff9a9e, #fecfef); /* 暖色调渐变背景 */
   border-radius: 4px 0 0 4px;
   overflow: hidden;
   display: flex;
@@ -68,10 +85,9 @@ nav, footer {
   color: #fff;
   font-size: 16px;
   cursor: pointer;
-  /* 竖直排列文字 */
-  writing-mode: vertical-rl;
+  writing-mode: vertical-rl;      /* 文字竖直排列 */
   text-orientation: mixed;
-  transform: rotate(180deg);
+  transform: rotate(180deg);      /* 调整文字方向 */
   transition: transform 0.3s ease;
 }
 
@@ -103,7 +119,23 @@ nav, footer {
   background: #e06a50;
 }
 
-/* ===== 基础个人简介样式 ===== */
+/* ===== 微交互效果 ===== */
+/* 工作经历项悬停上移效果 */
+#work-experience article.experience {
+  transition: transform 0.3s ease;
+}
+
+#work-experience article.experience:hover {
+  transform: translateY(-5px);
+}
+
+/* 链接悬停下划线效果 */
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===== 头像与个人简介动画 ===== */
+/* 个人简介容器淡入动画 */
 .profile-container {
   background-color: var(--container-bg);
   border-radius: 10px;
@@ -111,8 +143,16 @@ nav, footer {
   padding: 1.5rem;
   margin: 2rem auto;
   max-width: 600px;
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+  transition: transform 0.3s ease;
 }
 
+.profile-container:hover {
+  transform: scale(1.02);
+}
+
+/* 将头像尺寸调整为200x200px，并添加悬停放大效果 */
 .profile-container img.avatar {
   width: 200px;
   height: 200px;
@@ -124,4 +164,30 @@ nav, footer {
 
 .profile-container img.avatar:hover {
   transform: scale(1.05);
+}
+
+/* 工作经历区域淡入动画 */
+#work-experience {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+/* ===== 重要信息颜色 ===== */
+/* 需要反转的文本添加 .important 类 */
+.important {
+  color: var(--info-color);
+  transition: color 0.3s ease;
+}
+
+/* 在暗色模式下，重要信息颜色变为 var(--info-color-dark) */
+body.dark-mode .important {
+  color: var(--info-color-dark);
+}
+
+/* ===== 响应式调整 ===== */
+@media (max-width: 600px) {
+  .profile-container img.avatar {
+    width: 180px;
+    height: 180px;
+  }
 }
