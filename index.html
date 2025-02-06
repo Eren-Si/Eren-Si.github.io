@@ -112,28 +112,41 @@ footer {
   }
 }
 
-/* 樱花飘散效果的样式 */
-.sakura-petal {
+/* 侧边切换按钮容器 */
+#side-toggle-container {
   position: fixed;
-  top: -50px;
-  pointer-events: none;
-  z-index: 9999;
-  will-change: transform;
-  user-select: none;
+  right: -60px; /* 初始隐藏在右侧 */
+  top: 50%;
+  transform: translateY(-50%);
+  transition: right 0.3s ease;
+  z-index: 1000;
+}
+#side-toggle-container:hover {
+  right: 0; /* 鼠标悬停时滑出 */
+}
+#side-toggle-container button {
+  background: var(--accent-color);
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: #fff;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+#side-toggle-container button:hover {
+  transform: scale(1.1);
 }
 </style>
 
-<!-- 切换模式按钮（下移避免被导航栏覆盖） -->
-<div style="position: fixed; top: 70px; right: 1rem; z-index: 1000;">
-  <button id="theme-toggle" style="padding: 0.5rem 1rem; background: var(--accent-color); border: none; border-radius: 4px; color: #fff; cursor: pointer;">
-    Toggle Dark Mode
-  </button>
+<!-- 侧边主题切换按钮（侧边滑出效果） -->
+<div id="side-toggle-container">
+  <button id="theme-toggle">Toggle Dark Mode</button>
 </div>
 
 <!-- Personal Profile Section -->
 <section id="profile" style="text-align: center; padding: 2rem 0;">
   <div class="profile-container">
-    <!-- 个人头像，请确保图片路径正确 -->
+    <!-- 个人头像，引用修改为 eren.jpg -->
     <img src="{{ site.baseurl }}/assets/img/eren.jpg" alt="Eren Si" class="avatar">
     <h1>Eren Si</h1>
     <p>
@@ -164,26 +177,25 @@ footer {
   </div>
 </section>
 
-<!-- 樱花飘散效果的容器（JS 动态生成） -->
-<div id="sakura-container"></div>
-
-<!-- 内联 JavaScript，实现暗/亮模式切换和樱花飘散效果 -->
+<!-- 内联 JavaScript，实现暗/亮模式切换 -->
 <script>
-// DOMContentLoaded 确保元素加载完成后执行
 document.addEventListener("DOMContentLoaded", function() {
-  // 切换暗/亮模式代码
+  // 读取 localStorage 中保存的主题设置
   if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark-mode");
   }
   
+  // 获取侧边切换按钮
   var themeToggleButton = document.getElementById("theme-toggle");
   if (themeToggleButton) {
+    // 根据当前主题设置按钮文字
     if (document.body.classList.contains("dark-mode")) {
       themeToggleButton.textContent = "Toggle Light Mode";
     } else {
       themeToggleButton.textContent = "Toggle Dark Mode";
     }
     
+    // 添加点击事件，切换主题
     themeToggleButton.addEventListener("click", function() {
       document.body.classList.toggle("dark-mode");
       if (document.body.classList.contains("dark-mode")) {
@@ -195,44 +207,5 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
   }
-
-  // 樱花飘散效果
-  var petalCount = 30; // 可根据喜好调整数量
-  var sakuraContainer = document.getElementById("sakura-container");
-  var windowWidth = window.innerWidth;
-  var windowHeight = window.innerHeight;
-  
-  for (var i = 0; i < petalCount; i++) {
-    var petal = document.createElement("div");
-    petal.className = "sakura-petal";
-    // 使用 Emoji 樱花，可以替换为图片链接
-    petal.textContent = "🌸";
-    petal.style.fontSize = (Math.random() * 20 + 10) + "px";
-    petal.style.left = (Math.random() * windowWidth) + "px";
-    petal.style.opacity = Math.random();
-    sakuraContainer.appendChild(petal);
-  }
-  
-  function animatePetals() {
-    var petals = document.getElementsByClassName("sakura-petal");
-    for (var i = 0; i < petals.length; i++) {
-      var petal = petals[i];
-      // 获取当前位置
-      var top = parseFloat(petal.style.top) || -50;
-      var left = parseFloat(petal.style.left);
-      // 更新位置：下落并左右摇摆
-      top += Math.random() * 2 + 1;
-      left += Math.sin(Date.now() / 1000 + i) * 1;
-      if (top > windowHeight) {
-        top = -50;
-        left = Math.random() * windowWidth;
-      }
-      petal.style.top = top + "px";
-      petal.style.left = left + "px";
-    }
-    requestAnimationFrame(animatePetals);
-  }
-  
-  animatePetals();
 });
 </script>
