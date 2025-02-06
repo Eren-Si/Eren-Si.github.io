@@ -26,3 +26,20 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
+// 回到顶部按钮功能
+document.addEventListener("DOMContentLoaded", function() {
+  var backToTopButton = document.getElementById("back-to-top");
+  // 当页面滚动超过 300px 时显示按钮
+  window.addEventListener("scroll", function() {
+    if (window.pageYOffset > 300) {
+      backToTopButton.parentElement.style.display = "block";
+    } else {
+      backToTopButton.parentElement.style.display = "none";
+    }
+  });
+  
+  // 点击按钮平滑滚动到页面顶部
+  backToTopButton.addEventListener("click", function() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
