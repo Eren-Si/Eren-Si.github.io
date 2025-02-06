@@ -20,7 +20,7 @@ author: Eren Si
 ###############################################
 
 navbar-links:
-  Home: "home"
+  Home: "/"
   About Me: "aboutme"
   Projects: "projects"
   Blog: "blog"
